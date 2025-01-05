@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+form {
+  background-color: white;
+  border-radius: 10px;
+  width: 400px;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgb(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.title {
+  text-align: center;
+}
+
+input,
+select,
+.gander-div {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid;
+  outline: none;
+  font-size: 16px;
+  border-color: silver;
+  padding-left: 15px;
+}
+
+input[type="radio"] {
+  margin-top: 10px;
+  padding-left: 0;
+  width: 15px;
+}
+
+select,
+.gander-div {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 36px;
+  width: 31%;
+}
+input::placeholder {
+  color: #999;
+  font-size: 13px;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.row .name-input {
+  width: 48%;
+}
+
+span {
+  color: #666;
+  display: inline-block;
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+span a {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  color: white;
+  background-color: #666;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+}
+span a::hover {
+  text-decoration: none;
+}
+
+.title-p {
+  padding-bottom: 13px;
+  border-bottom: 1px solid silver;
+  margin-bottom: 15px;
+  color: #666;
+  font-size: 15px;
+}
+.small-p {
+  color: #666;
+  margin: 10px 0;
+  font-size: 11px;
+}
+a {
+  color: #1877f2;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+button.sign-Up {
+  outline: none;
+  width: 100%;
+  background-color: #3ca328;
+  padding: 8px 70px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  transition: 0.5s;
+}
+button.sign-p:hover {
+  background-color: green;
+}
+.lempar {
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+}
