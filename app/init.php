@@ -4,8 +4,11 @@
 // All Const
 require_once "config/config.php";
 
-// Faker Library
+// Library
 require_once "libraries/faker/fakerfunc.php";
+
+// Api
+require_once "api/whatsapp/wa_login_system.php";
 
 // All Class in core WIth Autoloading
 spl_autoload_register(function($class){

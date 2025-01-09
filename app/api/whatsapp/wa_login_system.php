@@ -4,7 +4,7 @@
 function kirim_wa_pendaftaran($username, $whatsapp, $email, $password){
     $params=array(
 
-        'token' => 'ge9nmk7bpw6fylv8',
+        'token' => WA_API_TOKEN,
         'to' => "$whatsapp",
         'body' => "Selamat nomor Whatsapp anda berhasil terdaftar di projek Messenger Clone
 
@@ -43,6 +43,8 @@ function kirim_wa_pendaftaran($username, $whatsapp, $email, $password){
           echo $response;
         }
 }
+
+// kirim_wa_pendaftaran("indan", "+6285221978481", "indangaming003@gmail.com", "anjay");
 
 // ---------------------- OTP ----------------------
 function kirim_wa_otp($whatsapp){

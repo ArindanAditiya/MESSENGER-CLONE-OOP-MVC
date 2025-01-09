@@ -6,7 +6,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 @font-face {
   font-family: "Facebook Sans";
-  src: url("../font/FacebookSansRegular.ttf") format("woff");
+  src: url("../assets/font/FacebookSansRegular.ttf") format("woff");
   font-weight: bolder;
   font-style: normal;
 }

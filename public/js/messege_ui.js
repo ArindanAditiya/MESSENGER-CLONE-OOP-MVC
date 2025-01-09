@@ -1,3 +1,4 @@
+console.log("this is messege_ui.js");
 // Elements
 const input = document.getElementById("inputMessege");
 const more = document.getElementById("moreInput");
