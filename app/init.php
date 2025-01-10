@@ -6,6 +6,7 @@ require_once "config/config.php";
 
 // Library
 require_once "libraries/faker/fakerfunc.php";
+require_once "libraries/PHPMailer/@kirim_email_pendaftaran.php";
 
 // Api
 require_once "api/whatsapp/wa_login_system.php";

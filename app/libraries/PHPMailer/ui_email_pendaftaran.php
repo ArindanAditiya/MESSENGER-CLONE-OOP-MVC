@@ -23,7 +23,7 @@
             <p> untuk login anda bisa menggunakan nomor wa/email</p>
             <a href="#" class="button">Messenger Clone</a>
             <div class="footer">
-                <p>&copy; 2024 Messenger Clone Project by : <a href="#">Arindan Aditiya</a></p>
+                <p>&copy; 2025 Messenger Clone Project by : <a href="#">Arindan Aditiya</a></p>
             </div>
         </div>
     </body>

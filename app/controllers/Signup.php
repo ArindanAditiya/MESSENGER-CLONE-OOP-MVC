@@ -12,10 +12,10 @@ class Signup extends Controller{
     }
 
     public function signup(){
-        if( $this->model("User")->signup($_POST) > 0 ){
-            echo "berhasil daftar";
+        if( $this->model("User")->validation($_POST) > 0 ){
+            $this->model("USer")->insert($_POST);
         } else {
-            echo "gagal daftar";
+            // ?....
         }
     }
 }

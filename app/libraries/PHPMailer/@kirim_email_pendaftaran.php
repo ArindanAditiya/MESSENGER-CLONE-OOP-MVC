@@ -3,9 +3,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // Include PHPMailer files
-require 'library/PHPMailer/src/Exception.php';
-require 'library/PHPMailer/src/PHPMailer.php';
-require 'library/PHPMailer/src/SMTP.php';
+require 'src/Exception.php';
+require 'src/PHPMailer.php';
+require 'src/SMTP.php';
 
 function kirim_email_pendaftaran($penerima, $subjek, $username, $whatsapp, $email, $kata_sandi) {
     $mail = new PHPMailer(true);
@@ -30,17 +30,17 @@ function kirim_email_pendaftaran($penerima, $subjek, $username, $whatsapp, $emai
         $whatsapp = htmlspecialchars($whatsapp);
         $email = htmlspecialchars($email);
         $kata_sandi = htmlspecialchars($kata_sandi);
-        include('library/PHPMailer/ui_email_pendaftaran.php'); // Memasukkan template dan menangkap outputnya
+        include('ui_email_pendaftaran.php'); // Memasukkan template dan menangkap outputnya
         $mail->Body = ob_get_clean(); // Mengambil isi buffer dan membersihkannya
 
         // Kirim Email
         $mail->isHTML(true);
         $mail->Subject = $subjek;
         $mail->send();
-        echo 'Pesan berhasil dikirim';
+        // echo 'Pesan berhasil dikirim';
     } catch (Exception $e) {
         echo "Pesan tidak dapat dikirim. Mailer Error: {$mail->ErrorInfo}";
     }
 }
-
-kirim_email_pendaftaran("indanaditiya@gmail.com", "tes", "indan", "08789078097", "indanaditiya@gmail.com", "indanfulstack2026");
+// for try the code👇
+// kirim_email_pendaftaran("indanaditiya@gmail.com", "tes", "indan", "08789078097", "indanaditiya@gmail.com", "indanfulstack2026");
