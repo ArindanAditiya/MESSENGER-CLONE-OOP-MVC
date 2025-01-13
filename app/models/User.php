@@ -79,11 +79,12 @@ class User{
 
         
          //------ pengiriman email dan wa kalau berhasil daftar ------
-        $penerima = $this->email;
+        $penerima_email = $this->email;
+        $email_terdaftar = $this->email;
         $subjek = "Pendaftaran Akun";
         $username = "$this->nama_depan $this->nama_belakang";
         $whatsapp = $this->nomor_wa;
-        $password = $this->kata_sandi;
+        $kata_sandi = $this->kata_sandi;
   
         $query = "INSERT INTO $this->table (nama_pengguna, nomor_wa, email, kata_sandi, tanggal_lahir, jenis_kelamin, foto_profil) 
                 VALUES (
@@ -96,24 +97,17 @@ class User{
                 :image
             )";
 
-    
-            // return $this->db->rowCount();
-            // Logika validasi, cek apakah semua kesalahan kosong
-        // if( empty($pesan_kesalahan_wa) && empty($pesan_kesalahan_email) && empty($pesan_kesalahan_usia) ){
-        //     $this->db->query($query);
-        //     $this->db->bind("nama", "$this->nama_depan $this->nama_belakang");
-        //     $this->db->bind("nomor_wa", $this->nomor_wa);
-        //     $this->db->bind("email", $this->email);
-        //     $this->db->bind("kata_sandi", $this->kata_sandi);
-        //     $this->db->bind("tanggal_lahir", "$this->tanggal_lahir-$this->bulan-$this->tahun");
-        //     $this->db->bind("kelamin", $this->kelamin);
-        //     $this->db->bind("image", IMG . "person.jpg");
-        //     $this->db->execute();
-        //     kirim_email_pendaftaran($penerima, $subjek, $username, $whatsapp, $this->email, $password);
-        //     kirim_wa_pendaftaran($username, $whatsapp, $this->email, $password);
-        //     return array( true , $pesan_kesalahan_wa , $pesan_kesalahan_email, $pesan_kesalahan_usia, $perubahan);
-        // } else {
-        //     return array( false , $pesan_kesalahan_wa , $pesan_kesalahan_email, $pesan_kesalahan_usia, $perubahan);
-        // }
+            $this->db->query($query);
+            $this->db->bind("nama", "$this->nama_depan $this->nama_belakang");
+            $this->db->bind("nomor_wa", $this->nomor_wa);
+            $this->db->bind("email", $this->email);
+            $this->db->bind("kata_sandi", $this->kata_sandi);
+            $this->db->bind("tanggal_lahir", "$this->tanggal_lahir-$this->bulan-$this->tahun");
+            $this->db->bind("kelamin", $this->kelamin);
+            $this->db->bind("image", IMG . "person.jpg");
+            $this->db->execute();
+            
+            kirim_email_pendaftaran($penerima_email, $subjek, $username, $whatsapp, $email_terdaftar, $kata_sandi);
+            kirim_wa_pendaftaran($username, $whatsapp, $email_terdaftar, $kata_sandi);
     }
 }
