@@ -66,13 +66,13 @@ class User{
         }
     }
 
-    public function upload(){
+    public function profileImage($image){
 
         // ambil data
-        $namaFile = $_FILES["foto"]["name"];
-        $ukuranFile = $_FILES["foto"]["size"];
-        $error = $_FILES["foto"]["error"];
-        $tmpName = $_FILES["foto"]["tmp_name"];
+        $namaFile = $image["imgUploading"]["name"];
+        $ukuranFile = $image["imgUploading"]["size"];
+        $error = $image["imgUploading"]["error"];
+        $tmpName = $image["imgUploading"]["tmp_name"];
 
         // cek apakah tidak ada fotoa yang diupload
         if( $error === 4 ){
@@ -107,6 +107,16 @@ class User{
 
             return false;    
         } 
+
+        $namaFileBaru = uniqid();
+        $namaFileBaru .= ".";
+        $namaFileBaru .= $extensionImage;
+        $destination = "C:/laragon/www/MESSENGER-CLONE-OOP-MVC/app/media/imguploaded/";
+        // pindahkan foto ke folder yang diingingkan
+        move_uploaded_file($tmpName, $destination . "profile_$namaFileBaru" );
+
+        return ["result" => true,
+                "namaFotoBaru" =>  $namaFileBaru];     
     }
 
     public function insert($data)

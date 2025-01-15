@@ -1,5 +1,6 @@
 <?php
 class Signup extends Controller{
+    protected $modelName = "User";
     
     public function index(){
         $data["title_icon"] = IMG . "icon.ico";
@@ -19,7 +20,7 @@ class Signup extends Controller{
             $submit['nomor_wa'] = PhoneHelper::normalizePhoneNumber($submit['nomor_wa']);
 
             // tangkap validasi            
-            $validation = $this->model("User")->validation($submit);           
+            $validation = $this->model($this->modelName)->validation($submit);           
 
             // persiapkan data untuk dikirimkan ke dalam view
             $data["wa_vall_value"] = $validation["wa_vall"];
@@ -28,8 +29,9 @@ class Signup extends Controller{
             
             // cek validasi
             if( $validation["result"] == true ){
-                $this->model("User")->insert($submit); 
+                $this->model($this->modelName)->insert($submit); 
                 $_SESSION["user_signed_up"] = $submit["nama_depan"];
+                $_SESSION["user_id"] = $submit["id_pengguna"];
                 header("Location:" . BASEURL . "signup/profile");
             } elseif ( $validation["result"] == false ) {
                 $this->view("signup/index", $data);
@@ -39,6 +41,12 @@ class Signup extends Controller{
 
         $this->view("signup/index", $data);
         $this->view("templates/footer", $data);
+    }
+
+    public function uploadProfileController(){
+        if( $this->model($this->modelName)->profileImage($_FILES)["result"] == true ){
+            var_dump("jalan wak");
+        }
     }
 
     public function profile(){

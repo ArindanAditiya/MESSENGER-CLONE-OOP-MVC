@@ -1,5 +1,6 @@
 <?php
 // global url
+define("PROFILE_IMG_DIRECTORY", "http://localhost/MESSENGER-CLONE-OOP-MVC/app/media/imguploaded/");
 define("BASEURL", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/");
 define("JS", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/js/");
 define("CSS", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/css/");
