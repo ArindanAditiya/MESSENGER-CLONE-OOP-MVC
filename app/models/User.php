@@ -14,6 +14,7 @@ class User{
     protected $bulan;
     protected $tahun;
     protected $kelamin;
+    protected $foto_profil;
 
     public function __construct()
     {
@@ -54,7 +55,7 @@ class User{
             empty($array_vallidation["email"]) && 
             empty($array_vallidation["born"]) 
         ){
-            return array("result" => true);
+            return  array("result" => true, /* dedfault value 👉 */ "wa_vall" => "", "email_vall" => "", "born_vall" => "");
         } else {
             return array(
                 "result" => false,
@@ -63,6 +64,49 @@ class User{
                 "born_vall" => $array_vallidation["born"]
             );
         }
+    }
+
+    public function upload(){
+
+        // ambil data
+        $namaFile = $_FILES["foto"]["name"];
+        $ukuranFile = $_FILES["foto"]["size"];
+        $error = $_FILES["foto"]["error"];
+        $tmpName = $_FILES["foto"]["tmp_name"];
+
+        // cek apakah tidak ada fotoa yang diupload
+        if( $error === 4 ){
+            echo"
+                <script>
+                    alert('Pilihlah foto Terlebihdahulu');
+                </script>";
+            return false;    
+        }
+
+        // cek apakah yang diupload adalah foto
+        $extensionValidImage = ["jpg", "jpeg", 'png', 'gif'];
+        $extensionImage = explode(".", $namaFile);
+        $extensionImage = strtolower(end($extensionImage));
+
+        // cek apakah file yang diupload itu sesuai dengan apa yang telah diterapkan didalam array
+        if( !in_array($extensionImage, $extensionValidImage) ){
+            echo"
+                <script>
+                    alert('Yang Anda upload bukan foto ');
+                </script>";
+
+            return false;    
+        }
+
+        // cek apakah ukuran kebesaran        
+        if( $ukuranFile > 10000000 ){
+            echo"
+                <script>
+                    alert('foto yang anda upload terlalu besar');
+                </script>"; 
+
+            return false;    
+        } 
     }
 
     public function insert($data)
@@ -101,13 +145,15 @@ class User{
             $this->db->bind("nama", "$this->nama_depan $this->nama_belakang");
             $this->db->bind("nomor_wa", $this->nomor_wa);
             $this->db->bind("email", $this->email);
-            $this->db->bind("kata_sandi", $this->kata_sandi);
+            $this->db->bind("kata_sandi", password_hash($this->kata_sandi, PASSWORD_DEFAULT));
             $this->db->bind("tanggal_lahir", "$this->tanggal_lahir-$this->bulan-$this->tahun");
             $this->db->bind("kelamin", $this->kelamin);
-            $this->db->bind("image", IMG . "person.jpg");
+            $this->db->bind("image", "");
             $this->db->execute();
             
-            kirim_email_pendaftaran($penerima_email, $subjek, $username, $whatsapp, $email_terdaftar, $kata_sandi);
-            kirim_wa_pendaftaran($username, $whatsapp, $email_terdaftar, $kata_sandi);
+        //    SAKTI
+            // kirim_email_pendaftaran($penerima_email, $subjek, $username, $whatsapp, $email_terdaftar, $kata_sandi);
+            // kirim_wa_pendaftaran($username, $whatsapp, $email_terdaftar, $kata_sandi);
+            
     }
 }

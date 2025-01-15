@@ -3,7 +3,7 @@
 define("BASEURL", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/");
 define("JS", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/js/");
 define("CSS", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/css/");
-define("IMG", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/assets/img");
+define("IMG", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/assets/img/");
 
 // DB
 define("DB_HOST", "localhost");
