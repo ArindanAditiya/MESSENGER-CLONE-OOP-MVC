@@ -1,6 +1,6 @@
 <div class="container">
-      <h1 class="title">Selamat datang di Facebook, <?=  $data["user_name"] ;?></h1>
-      <form action="uploadProfileController" method="post" enctype="multipart/form-data">
+      <h1 class="title">Selamat datang di Facebook, <?=  $data["registering_user_name"] ;?></h1>
+      <form action="uploadProfileImg" method="post" enctype="multipart/form-data">
       <div class="upload-section">
         <div class="profile-preview">
             <p>Unggah foto profil</p>

@@ -111,9 +111,9 @@ class User{
         $namaFileBaru = uniqid();
         $namaFileBaru .= ".";
         $namaFileBaru .= $extensionImage;
-        $destination = "C:/laragon/www/MESSENGER-CLONE-OOP-MVC/app/media/imguploaded/";
+
         // pindahkan foto ke folder yang diingingkan
-        move_uploaded_file($tmpName, $destination . "profile_$namaFileBaru" );
+        move_uploaded_file($tmpName, IMAGE_DIRECTORY . "profileImg_$namaFileBaru" );
 
         return ["result" => true,
                 "namaFotoBaru" =>  $namaFileBaru];     
@@ -161,9 +161,11 @@ class User{
             $this->db->bind("image", "");
             $this->db->execute();
             
-        //    SAKTI
-            // kirim_email_pendaftaran($penerima_email, $subjek, $username, $whatsapp, $email_terdaftar, $kata_sandi);
-            // kirim_wa_pendaftaran($username, $whatsapp, $email_terdaftar, $kata_sandi);
+            if ($this->db->rowCount() > 0){
+                // kirim_wa_pendaftaran($username, $whatsapp, $email_terdaftar, $kata_sandi);
+                // kirim_email_pendaftaran($penerima_email, $subjek, $username, $whatsapp, $email_terdaftar, $kata_sandi);                
+            }
             
+            var_dump("debugging_id" . $this->db->rowCount());
     }
 }

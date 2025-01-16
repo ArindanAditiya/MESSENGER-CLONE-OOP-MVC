@@ -16,7 +16,9 @@ class Signup extends Controller{
         // kalau disubmit
         if( isset($_POST["submit"]) ){
             // tangkapn submit
-            $submit = $_POST;            
+            $submit = $_POST; 
+            // var_dump($submit);
+            // exit;           
             $submit['nomor_wa'] = PhoneHelper::normalizePhoneNumber($submit['nomor_wa']);
 
             // tangkap validasi            
@@ -30,8 +32,10 @@ class Signup extends Controller{
             // cek validasi
             if( $validation["result"] == true ){
                 $this->model($this->modelName)->insert($submit); 
-                $_SESSION["user_signed_up"] = $submit["nama_depan"];
-                $_SESSION["user_id"] = $submit["id_pengguna"];
+                exit;
+                $data["registering_user_name"] = $submit["nama_depan"];
+                $data["registering_user_id"] = "";
+                // var_dump("debugging session" . $_SESSION);
                 header("Location:" . BASEURL . "signup/profile");
             } elseif ( $validation["result"] == false ) {
                 $this->view("signup/index", $data);
@@ -42,41 +46,37 @@ class Signup extends Controller{
         $this->view("signup/index", $data);
         $this->view("templates/footer", $data);
     }
-
-    public function uploadProfileController(){
-        if( $this->model($this->modelName)->profileImage($_FILES)["result"] == true ){
-            var_dump("jalan wak");
+    public function uploadProfileImg(){
+        if ( isset($_FILES) ){
+            if( $this->model($this->modelName)->profileImage($_FILES)["result"] == true ){
+                var_dump("jalan wak");
+            }
+        } else {
+            header("Location:" . BASEURL . "signup/profile");
         }
+        
     }
 
     public function profile(){
-
-        $_SESSION["user_signed_up"] = "Komang";
-        // var_dump($_SESSION["user_signed_up"]);
-        // exit;
-        
         $data["title_icon"] = IMG . "icon.ico";
         $data["title"] = "SignUp";
         $data["default_pp"] = IMG . "menProfile.jpg";
         $data["wa_vall_value"] = "";
         $data["email_vall_value"] = "";
         $data["born_vall_value"] = "";
-       
         
         // kalau user belum signup tendang ke halaman signup/index
-        if( !isset($_SESSION["user_signed_up"]) ){
-            $data["style"] = CSS . "daftar.css";
-            $data["script"] = "";      
-            $this->view("templates/header", $data);
-            $this->view("signup/index", $data);
-            $this->view("templates/footer", $data);
-        } else{
+        if( isset($_SESSION["registering_user_name"]) &&  isset($_SESSION["registering_user_id"])){
             $data["style"] = CSS . "profile.css";
             $data["script"] = JS . "profileScript.js";
-            $data["user_name"] = $_SESSION["user_signed_up"];            
+            $data["registering_user_name"] = $_SESSION["registering_user_name"];
+            $data["registering_user_id"] = $_SESSION["registering_user_id"];  
+            // persiapkan view
             $this->view("templates/header", $data);
             $this->view("signup/profile", $data);
             $this->view("templates/footer", $data);
+        } else{
+            header("Location:" . BASEURL . "signup/index");
         }
 
     }

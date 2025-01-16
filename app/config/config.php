@@ -1,6 +1,11 @@
 <?php
+
+// global media directory
+define("IMAGE_DIRECTORY", "C:/laragon/www/MESSENGER-CLONE-OOP-MVC/app/media/imguploaded/");
+define("VIDEO_DIRECTORY", "C:/laragon/www/MESSENGER-CLONE-OOP-MVC/app/media/videouploaded/");
+define("SOUND_DIRECTORY", "C:/laragon/www/MESSENGER-CLONE-OOP-MVC/app/media/sounduploaded/");
+
 // global url
-define("PROFILE_IMG_DIRECTORY", "http://localhost/MESSENGER-CLONE-OOP-MVC/app/media/imguploaded/");
 define("BASEURL", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/");
 define("JS", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/js/");
 define("CSS", "http://localhost/MESSENGER-CLONE-OOP-MVC/public/css/");
