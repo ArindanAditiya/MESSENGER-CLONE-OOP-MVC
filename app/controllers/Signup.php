@@ -31,11 +31,8 @@ class Signup extends Controller{
             
             // cek validasi
             if( $validation["result"] == true ){
-                $this->model($this->modelName)->insert($submit); 
-                exit;
-                $data["registering_user_name"] = $submit["nama_depan"];
-                $data["registering_user_id"] = "";
-                // var_dump("debugging session" . $_SESSION);
+                $_SESSION["submit_data"] = $submit;
+                $_SESSION["registering_user_name"] = $submit["nama_depan"];
                 header("Location:" . BASEURL . "signup/profile");
             } elseif ( $validation["result"] == false ) {
                 $this->view("signup/index", $data);
@@ -46,17 +43,7 @@ class Signup extends Controller{
         $this->view("signup/index", $data);
         $this->view("templates/footer", $data);
     }
-    public function uploadProfileImg(){
-        if ( isset($_FILES) ){
-            if( $this->model($this->modelName)->profileImage($_FILES)["result"] == true ){
-                var_dump("jalan wak");
-            }
-        } else {
-            header("Location:" . BASEURL . "signup/profile");
-        }
-        
-    }
-
+    
     public function profile(){
         $data["title_icon"] = IMG . "icon.ico";
         $data["title"] = "SignUp";
@@ -64,13 +51,12 @@ class Signup extends Controller{
         $data["wa_vall_value"] = "";
         $data["email_vall_value"] = "";
         $data["born_vall_value"] = "";
-        
+
         // kalau user belum signup tendang ke halaman signup/index
-        if( isset($_SESSION["registering_user_name"]) &&  isset($_SESSION["registering_user_id"])){
+        if( isset($_SESSION["registering_user_name"])){
             $data["style"] = CSS . "profile.css";
             $data["script"] = JS . "profileScript.js";
             $data["registering_user_name"] = $_SESSION["registering_user_name"];
-            $data["registering_user_id"] = $_SESSION["registering_user_id"];  
             // persiapkan view
             $this->view("templates/header", $data);
             $this->view("signup/profile", $data);
@@ -78,6 +64,22 @@ class Signup extends Controller{
         } else{
             header("Location:" . BASEURL . "signup/index");
         }
-
     }
+
+    public function uploadProfileImg(){
+        if ( isset($_FILES) && isset($_SESSION["submit_data"])){
+            if( $this->model($this->modelName)->profileImage($_FILES)["result"] == true ){
+
+                $_SESSION["submit_data"]["foto_profil"] = $this->model($this->modelName)->profileImage($_FILES)["namaFotoBaru"];
+                $this->model($this->modelName)->insert($_SESSION["submit_data"]); 
+
+                header("Location:" . BASEURL . "messege/blank_chat");
+                session_unset();
+                session_destroy();
+            }
+        } else {
+            header("Location:" . BASEURL . "signup/profile");
+        }
+    }
+
 }

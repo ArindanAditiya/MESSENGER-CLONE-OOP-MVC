@@ -7,7 +7,7 @@
             <span>FB-</span>
             <input name="inp_user" id="input" type="text" />
           </div>
-          <a href="#">Kirim email lagi</a>
+          <a href="sendNewOTP">Kirim email lagi</a>
           <div class="button">
             <button name="submit_otp" type="submit" id="lanjutkan" class="none" href="#">Lanjutkan</button>
           </div>

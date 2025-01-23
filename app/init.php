@@ -12,7 +12,11 @@ require_once "libraries/PHPMailer/@kirim_email_pendaftaran.php";
 require_once "api/whatsapp/wa_login_system.php";
 
 // helpers
-require_once "helpers/PhoneHelper.php";
+require "helpers/PhoneHelper.php";
+require "helpers/SetUserLoginCookieHelper.php";
+require "helpers/WhatsappHelper.php";
+
+// SetUserLoginCookieHelper::userId();
 
 // All Class in core With Autoloading
 spl_autoload_register(function($class){

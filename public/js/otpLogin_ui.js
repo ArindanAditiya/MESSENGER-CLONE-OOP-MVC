@@ -1,4 +1,4 @@
-console.log("this is otpLogin_ui.js" );
+console.log("this is otpLogin_ui.js");
 // OTP-LOGIN_____
 const input = document.getElementById("input");
 const lanjutkan = document.getElementById("lanjutkan");

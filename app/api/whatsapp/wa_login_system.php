@@ -17,7 +17,7 @@ function kirim_wa_pendaftaran($username, $whatsapp, $email, $password){
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
-          CURLOPT_URL => "https://api.ultramsg.com/instance95223/messages/chat",
+          CURLOPT_URL => "https://api.ultramsg.com/". WA_API_INSTANCE ."/messages/chat",
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
@@ -50,13 +50,13 @@ function kirim_wa_pendaftaran($username, $whatsapp, $email, $password){
 function kirim_wa_otp($whatsapp){
   $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
   $params=array(
-      'token' => 'ge9nmk7bpw6fylv8',
+      'token' => WA_API_TOKEN,
       'to' => "$whatsapp",
       'body' => "$otp adalah kode kemanan Messengr Clone anda. Masukkan kode tersebut di Facebook untuk ferivikasi akun anda");
 
       $curl = curl_init();
       curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://api.ultramsg.com/instance95223/messages/chat",
+        CURLOPT_URL => "https://api.ultramsg.com/". WA_API_INSTANCE ."/messages/chat",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,

@@ -1,20 +1,22 @@
 <?php
 
+use LDAP\Result;
+
 class User{
     private $table = "pengguna";
     private $db;
 
     //User Data
-    protected $nama_depan;
-    protected $nama_belakang;
-    protected $nomor_wa;
-    protected $email;
-    protected $kata_sandi;
-    protected $tanggal_lahir;
-    protected $bulan;
-    protected $tahun;
-    protected $kelamin;
-    protected $foto_profil;
+    private $nama_depan;
+    private $nama_belakang;
+    private $nomor_wa;
+    private $email;
+    private $kata_sandi;
+    private $tanggal_lahir;
+    private $bulan;
+    private $tahun;
+    private $kelamin;
+    private $foto_profil;
 
     public function __construct()
     {
@@ -44,11 +46,6 @@ class User{
             $array_vallidation["born"] = "Maaf anda belum cukup usia";
         }
         // ------ End Validasi ------
-
-        // debug
-        // var_dump($array_vallidation["wa"]);
-        // var_dump($array_vallidation["email"]);
-        // var_dump($array_vallidation["born"]);
 
         // Cek apakah semua validasi lolos
         if( empty($array_vallidation["wa"]) && 
@@ -130,7 +127,8 @@ class User{
         $this->bulan = htmlspecialchars($data["bulan"]);
         $this->tahun = htmlspecialchars($data["tahun"]);
         $this->kelamin = htmlspecialchars($data["kelamin"]);
-
+        $this->foto_profil = htmlspecialchars($data["foto_profil"]);
+        var_dump($this->foto_profil);
         
          //------ pengiriman email dan wa kalau berhasil daftar ------
         $penerima_email = $this->email;
@@ -158,14 +156,42 @@ class User{
             $this->db->bind("kata_sandi", password_hash($this->kata_sandi, PASSWORD_DEFAULT));
             $this->db->bind("tanggal_lahir", "$this->tanggal_lahir-$this->bulan-$this->tahun");
             $this->db->bind("kelamin", $this->kelamin);
-            $this->db->bind("image", "");
+            $this->db->bind("image", $this->foto_profil);
             $this->db->execute();
             
             if ($this->db->rowCount() > 0){
-                // kirim_wa_pendaftaran($username, $whatsapp, $email_terdaftar, $kata_sandi);
+                WhatsappHelper::kirim_wa_pendaftaran($username, $whatsapp, $email_terdaftar, $kata_sandi);
                 // kirim_email_pendaftaran($penerima_email, $subjek, $username, $whatsapp, $email_terdaftar, $kata_sandi);                
             }
+    }
+
+    public function cekLogin($submit){
+        $username = "";
+        $query = "";
+        if (( substr($submit["user"], 0, 3)) == "+62"){
+            $username = $submit["user"];
+            $query = "SELECT * FROM pengguna WHERE nomor_wa = :user ";
+        } elseif (( substr($submit["user"], 0, 2)) == "08"){
+            $submit["user"] = PhoneHelper::normalizePhoneNumber($submit["user"]);
+            $username = $submit["user"];
+            $query = "SELECT * FROM pengguna WHERE nomor_wa = :user ";
+        } else{
+            $username = $submit["user"];
+            $query = "SELECT * FROM pengguna WHERE email = :user ";
+        }
+        $this->db->query($query);
+        $this->db->bind("user", $username);
+        $this->db->execute();
+        if($this->db->rowCount() > 0) {
+            if(  password_verify($submit["password"], $this->db->single()["kata_sandi"])){
+                return[
+                    "result" => true,
+                    "whatsapp" => $this->db->single()["nomor_wa"]
+                ];
+            }else{
+                return false;        
+            }
+        } 
             
-            var_dump("debugging_id" . $this->db->rowCount());
     }
 }

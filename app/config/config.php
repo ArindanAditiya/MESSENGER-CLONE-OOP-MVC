@@ -18,4 +18,5 @@ define("DB_PASS", "");
 define("DB_NAME", "messenger_clone");
 
 // wa api
-define("WA_API_TOKEN", "ge9nmk7bpw6fylv8");
+define("WA_API_TOKEN", "g796s4m4naiep77b");
+define("WA_API_INSTANCE", "instance104300");
