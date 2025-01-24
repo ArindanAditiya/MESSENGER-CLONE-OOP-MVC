@@ -184,13 +184,12 @@ class User{
         $this->db->execute();
         if($this->db->rowCount() > 0) {
             if(  password_verify($submit["password"], $this->db->single()["kata_sandi"])){
-                return[
-                    "result" => true,
-                    "whatsapp" => $this->db->single()["nomor_wa"]
-                ];
-            }else{
-                return false;        
-            }
+                return["result" => true, "whatsapp" => $this->db->single()["nomor_wa"] ];
+            }else {
+                return[ "result" => false, "whatsapp" => ""];
+            } 
+        } else {
+            return["result" => false, "whatsapp" => ""];
         } 
             
     }
