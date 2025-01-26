@@ -15,6 +15,7 @@ require_once "api/whatsapp/wa_login_system.php";
 require "helpers/PhoneHelper.php";
 require "helpers/SetUserLoginCookieHelper.php";
 require "helpers/WhatsappHelper.php";
+require "helpers/CookieHelper.php";
 
 // SetUserLoginCookieHelper::userId();
 

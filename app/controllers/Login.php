@@ -37,9 +37,8 @@ class Login extends Controller{
         echo "<br/>";
         echo "otp dikirim :" . $_SESSION["otp"];
         echo "<br/>";
-        if (isset($submit["otpSubmit"])) {
-        echo "otp diinputkan :" . $submit["otpInp"];
-        } //________
+        // echo "token :" . CookieHelper::generateRandomToken() ;
+        //________
         
         if( isset($_SESSION["send_wa"]) ){
             $data["title_icon"] = IMG . "icon.ico";
@@ -57,6 +56,7 @@ class Login extends Controller{
 
         if (isset($submit["otpSubmit"])) {
             if( $_SESSION["otp"] == $submit["otpInp"] ){
+                setcookie("tokenID", $this->model($this->modelName)->getToken(),  );
                 header("Location:". BASEURL . "messege/blank_chat");
                 session_unset();
                 session_destroy();
