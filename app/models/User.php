@@ -7,6 +7,7 @@ class User{
     private $db;
 
     //User Data
+    public $id_pengguna = "";
     private $nama_depan;
     private $nama_belakang;
     private $nomor_wa;
@@ -23,8 +24,8 @@ class User{
         $this->db = new Database;
     }
 
-    public function validation($submit){
-
+    public function validation($submit)
+    {
         // ------ start validastion ------
         $array_vallidation = ["wa"=>"", "email"=>"", "born"=>""]; // Inisialisasi array default
         // cek apakah ada nomor wa yang sama
@@ -63,8 +64,8 @@ class User{
         }
     }
 
-    public function profileImage($image){
-
+    public function profileImage($image)
+    {
         // ambil data
         $namaFile = $image["imgUploading"]["name"];
         $ukuranFile = $image["imgUploading"]["size"];
@@ -165,7 +166,8 @@ class User{
             }
     }
 
-    public function cekLogin($submit){
+    public function cekLogin($submit)
+    {
         $username = "";
         $query = "";
         if (( substr($submit["user"], 0, 3)) == "+62"){
@@ -184,13 +186,31 @@ class User{
         $this->db->execute();
         if($this->db->rowCount() > 0) {
             if(  password_verify($submit["password"], $this->db->single()["kata_sandi"])){
-                return["result" => true, "whatsapp" => $this->db->single()["nomor_wa"] ];
+                return[
+                    "result" => true, 
+                    "id" => $this->db->single()["id_pengguna"],
+                    "whatsapp" => $this->db->single()["nomor_wa"]
+                ];
             }else {
                 return[ "result" => false, "whatsapp" => ""];
             } 
         } else {
             return["result" => false, "whatsapp" => ""];
         } 
-            
+    }
+
+
+    public function setCookieToken($id)
+    {
+        $token = CookieHelper::generateRandomToken();
+
+        $this->db->query("INSERT INTO `token_login` (`id_token`, `pengguna_id`, `token`) 
+                        VALUES (NULL, :id, :token);");
+        $this->db->bind("id", $id);
+        $this->db->bind("token", password_hash($token, PASSWORD_DEFAULT));
+        $this->db->execute();
+
+        setcookie("*****", $token, strtotime("+1 hours"),"/");
+        
     }
 }

@@ -16,7 +16,9 @@ class Login extends Controller{
             $cekLogin = $this->model($this->modelName)->cekLogin($submit);
 
             if( $cekLogin["result"] == true ){
+                $id = $cekLogin["id"];
                 $whatsappLogin = $cekLogin["whatsapp"];
+                $_SESSION["id"] = $id;
                 $_SESSION["send_wa"] = $whatsappLogin;
                 $_SESSION["otp"] = WhatsappHelper::kirim_wa_otp($whatsappLogin);
                 header("Location:". BASEURL ."login/sendotp");
@@ -26,18 +28,25 @@ class Login extends Controller{
 
         }
         $this->view("login/index", $data);
-        $this->view("templates/footer", $data);      
-    }
+        }
 
     public function sendOtp(){
         $submit = $_POST;
+        // $token = CookieHelper::generateRandomToken();
+        // $id = $this->model($this->modelName)->cekLogin();
 
        //debugging_____
+       echo "id :" . $_SESSION["id"] ;
+       echo "<br/>";
         echo "whatsapp :" . $_SESSION["send_wa"];
         echo "<br/>";
         echo "otp dikirim :" . $_SESSION["otp"];
         echo "<br/>";
-        // echo "token :" . CookieHelper::generateRandomToken() ;
+        if (isset($submit["otpSubmit"])) {
+            echo "otp input :" . $submit["otpInp"];
+        }
+        // var_dump($submit);
+        
         //________
         
         if( isset($_SESSION["send_wa"]) ){
@@ -56,7 +65,8 @@ class Login extends Controller{
 
         if (isset($submit["otpSubmit"])) {
             if( $_SESSION["otp"] == $submit["otpInp"] ){
-                setcookie("tokenID", $this->model($this->modelName)->getToken(),  );
+                // echo "jalan cuk";
+                $this->model($this->modelName)->setCookieToken($_SESSION["id"]); 
                 header("Location:". BASEURL . "messege/blank_chat");
                 session_unset();
                 session_destroy();

@@ -1,7 +1,8 @@
 <?php
 
 class CookieHelper{
-    public static function generateRandomToken($length = 100) {
+    public static function generateRandomToken($length = 100)
+    {
         // Define character pool for token generation
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);

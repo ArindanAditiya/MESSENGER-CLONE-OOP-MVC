@@ -5,8 +5,8 @@
       </div>
       <div class="right">
         <form action="<?=BASEURL;?>login/index" method="post">
-          <input name="user" autocomplete="off" type="text" id="input1" placeholder="Email address or phone number" />
-          <input name="password" autocomplete="off" type="text" id="input2" placeholder="password" />
+          <input value="indangaming003@gmail.com" name="user" autocomplete="off" type="text" id="input1" placeholder="Email address or phone number" />
+          <input value="qwerty" name="password" autocomplete="off" type="text" id="input2" placeholder="password" />
           <span style="color: red;"><?= $data["login_faild_messege"] ;?></span><br>
           <button name="login" class="LoginBtn" type="submit" >Log in</button>
           <a  class="forget">forgetten password?</a>

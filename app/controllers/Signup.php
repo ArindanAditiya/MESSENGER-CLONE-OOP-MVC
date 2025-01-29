@@ -73,6 +73,8 @@
                     $_SESSION["submit_data"]["foto_profil"] = $this->model($this->modelName)->profileImage($_FILES)["namaFotoBaru"];
                     $this->model($this->modelName)->insert($_SESSION["submit_data"]); 
 
+                    // $id = $this->model($this->modelName)->setCookieToken($_SESSION["id"]); 
+                    // $this->model($this->modelName)->setCookieToken($id); 
                     header("Location:" . BASEURL . "messege/blank_chat");
                     session_unset();
                     session_destroy();
