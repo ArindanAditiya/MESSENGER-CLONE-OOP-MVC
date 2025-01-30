@@ -129,7 +129,6 @@ class User{
         $this->tahun = htmlspecialchars($data["tahun"]);
         $this->kelamin = htmlspecialchars($data["kelamin"]);
         $this->foto_profil = htmlspecialchars($data["foto_profil"]);
-        var_dump($this->foto_profil);
         
          //------ pengiriman email dan wa kalau berhasil daftar ------
         $penerima_email = $this->email;
@@ -160,10 +159,15 @@ class User{
             $this->db->bind("image", $this->foto_profil);
             $this->db->execute();
             
-            if ($this->db->rowCount() > 0){
-                WhatsappHelper::kirim_wa_pendaftaran($username, $whatsapp, $email_terdaftar, $kata_sandi);
-                // kirim_email_pendaftaran($penerima_email, $subjek, $username, $whatsapp, $email_terdaftar, $kata_sandi);                
-            }
+            // if ($this->db->rowCount() > 0){
+            //     WhatsappHelper::kirim_wa_pendaftaran($username, $whatsapp, $email_terdaftar, $kata_sandi);
+            //     // kirim_email_pendaftaran($penerima_email, $subjek, $username, $whatsapp, $email_terdaftar, $kata_sandi);                
+            // }
+
+            $this->db->query("SELECT `id_pengguna` FROM `pengguna` WHERE nomor_wa = :wa");
+            $this->db->bind("wa", $this->nomor_wa);
+            $this->db->execute();
+            return $this->db->single()["id_pengguna"];
     }
 
     public function cekLogin($submit)

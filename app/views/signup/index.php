@@ -4,14 +4,14 @@
         <p class="title-p">ini cepat dan mudah.</p>
       </div>
       <div class="row">
-        <input value="" required name="nama_depan" class="name-input" type="text" placeholder="Nama Depan" />
-        <input value="" required name="nama_belakang" class="name-input" type="text" placeholder="Nama Belakang" />
+        <input value="Arindan" required name="nama_depan" class="name-input" type="text" placeholder="Nama Depan" />
+        <input value="Aditiya" required name="nama_belakang" class="name-input" type="text" placeholder="Nama Belakang" />
       </div>
-      <input value="" required name="nomor_wa" type="text" placeholder="Nomor Whatsapp" />
+      <input value="085221978481" required name="nomor_wa" type="text" placeholder="Nomor Whatsapp" />
       <span style='color: red;'><?=  $data["wa_vall_value"] ;?></span>
-      <input value="" required name="email" type="email" placeholder="Email" />
+      <input value="indangaming003@gmail.com" required name="email" type="email" placeholder="Email" />
       <span style='color: red;'><?= $data["email_vall_value"] ;?></span>
-      <input value="" required name="kata_sandi" type="password" placeholder="Kata Sandi baru" />
+      <input value="qwerty" required name="kata_sandi" type="password" placeholder="Kata Sandi baru" />
       <span>Tanggal Lahir <a href="https://id-id.facebook.com/help" target="_blank">?</a></span>
       <div class="row">
         <select name="tanggal" id="">

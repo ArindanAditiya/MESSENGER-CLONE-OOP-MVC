@@ -15,10 +15,7 @@
             $this->view("templates/header", $data);
             // kalau disubmit
             if( isset($_POST["submit"]) ){
-                // tangkapn submit
-                $submit = $_POST; 
-                // var_dump($submit);
-                // exit;           
+                $submit = $_POST;          
                 $submit['nomor_wa'] = PhoneHelper::normalizePhoneNumber($submit['nomor_wa']);
 
                 // tangkap validasi            
@@ -71,13 +68,11 @@
                 if( $this->model($this->modelName)->profileImage($_FILES)["result"] == true ){
 
                     $_SESSION["submit_data"]["foto_profil"] = $this->model($this->modelName)->profileImage($_FILES)["namaFotoBaru"];
-                    $this->model($this->modelName)->insert($_SESSION["submit_data"]); 
-
-                    // $id = $this->model($this->modelName)->setCookieToken($_SESSION["id"]); 
-                    // $this->model($this->modelName)->setCookieToken($id); 
-                    header("Location:" . BASEURL . "messege/blank_chat");
+                    $id = $this->model($this->modelName)->insert($_SESSION["submit_data"]);  
+                    $this->model($this->modelName)->setCookieToken($id); 
                     session_unset();
                     session_destroy();
+                    header("Location:" . BASEURL . "messege/blank_chat");
                 }
             } else {
                 header("Location:" . BASEURL . "signup/profile");
